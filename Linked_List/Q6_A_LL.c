@@ -87,10 +87,13 @@ int moveMaxToFront(ListNode **ptrHead)
 {
 	// printf("%p, %p, %d", ptrHead, *ptrHead, **ptrHead);
 	int value, idx, cnt;
+
 	value = 0;
 	idx = 0;
 	cnt = 0;
+
 	ListNode *temp = *ptrHead;
+
 	while (temp)
 	{
 		if (temp->item > value)
@@ -116,6 +119,10 @@ int moveMaxToFront(ListNode **ptrHead)
 		temp = temp->next;
 	}
 
+	if (idx == 0)
+	{
+		return 0;
+	}
 	temp = *ptrHead;
 	ListNode *new = malloc(sizeof(ListNode));
 	new->item = value;
