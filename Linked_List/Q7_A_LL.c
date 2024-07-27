@@ -81,7 +81,7 @@ int main()
 	return 0;
 }
 
-////////////////////////////////////////////////////////////////////////
+// ////////////////////////////////////////////////////////////////////////
 // void RecursiveReverse(ListNode **ptrHead)
 // {
 // 	ListNode *rest, *cur, *prev;
@@ -118,6 +118,25 @@ void RecursiveReverse(ListNode **ptrHead)
 	*ptrHead = rest;
 }
 //////////////////////////////////////////////////////////////////////////////////
+// 승우 코드 (Head를 끝까지 끌고옴)
+void RecursiveReverse(ListNode **ptrHead)
+{
+	ListNode *ptr = *ptrHead;
+	if (ptr == NULL)
+		return;
+	ListNode *next_ptr = ptr->next;
+	if (next_ptr == NULL)
+		return;
+	*ptrHead = next_ptr;
+
+	RecursiveReverse(ptrHead);
+
+	next_ptr->next = ptr;
+	ptr->next = NULL;
+
+	/* add your code here */
+}
+///////////////////////////
 
 void printList(LinkedList *ll)
 {
