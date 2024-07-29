@@ -118,40 +118,57 @@ int main()
 
 //////////////////////////////////////////////////////////////////////////////////
 
+// int identical(BTNode *tree1, BTNode *tree2)
+
+// {
+//     // 트리 두개가 모두 NULL일 경우 예외처리
+//     if (tree1 == NULL && tree2 == NULL)
+//         return 1;
+//     if (tree1 == NULL || tree2 == NULL)
+//         return 0;
+
+//     Stack order;
+//     order.top = NULL;
+//     BTNode *temp1 = tree1;
+//     BTNode *temp2 = tree2;
+
+//     push(&order, tree1);
+//     push(&order, tree2);
+
+//     while (order.top != NULL)
+//     {
+//         // 트리 두개가 1개 이상 있는 경우
+//         temp2 = pop(&order);
+//         temp1 = pop(&order);
+
+//         if (temp1 == NULL && temp2 == NULL)
+//             continue;
+//         if (temp1->item != temp2->item)
+//             return 0;
+
+//         push(&order, temp1->right);
+//         push(&order, temp2->right);
+//         push(&order, temp1->left);
+//         push(&order, temp2->left);
+//     }
+//     return 1;
+// }
+
 int identical(BTNode *tree1, BTNode *tree2)
-
 {
-    Stack order;
-    order.top = NULL;
-    BTNode *temp1 = tree1;
-    BTNode *temp2 = tree2;
+    if (tree1 == NULL && tree2 == NULL)
+        return 1;
+    if (tree1 == NULL || tree2 == NULL)
+        return 0;
 
-    push(&order, tree1);
-    push(&order, tree2);
-
-    while (order.top != NULL)
+    int result = 0;
+    if (tree1->item == tree2->item)
     {
-        // 트리 두개가 모두 NULL일 경우 예외처리
-        if (tree1 == NULL && tree2 == NULL)
-            return 1;
-        if (tree1 == NULL || tree2 == NULL)
-            return 0;
-
-        // 트리 두개가 1개 이상 있는 경우
-        temp2 = pop(&order);
-        temp1 = pop(&order);
-
-        if (temp1 == NULL && temp2 == NULL)
-            continue;
-        if (temp1->item != temp2->item)
-            return 0;
-
-        push(&order, temp1->right);
-        push(&order, temp2->right);
-        push(&order, temp1->left);
-        push(&order, temp2->left);
+        result = identical(tree1->left, tree2->left) + identical(tree1->right, tree2->right);
+        return result;
     }
-    return 1;
+    else
+        return result;
 }
 
 /////////////////////////////////////////////////////////////////////////////////
