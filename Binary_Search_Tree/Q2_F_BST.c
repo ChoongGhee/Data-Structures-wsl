@@ -48,7 +48,7 @@ int main()
 {
 	int c, i;
 	c = 1;
-
+	i = 0;
 	// Initialize the Binary Search Tree as an empty Binary Search Tree
 	BSTNode *root;
 	root = NULL;
