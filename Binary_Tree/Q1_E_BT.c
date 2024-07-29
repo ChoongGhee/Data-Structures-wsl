@@ -164,7 +164,13 @@ int identical(BTNode *tree1, BTNode *tree2)
     int result = 0;
     if (tree1->item == tree2->item)
     {
-        result = identical(tree1->left, tree2->left) + identical(tree1->right, tree2->right);
+        if (identical(tree1->left, tree2->left) && identical(tree1->right, tree2->right))
+        {
+            result = 1;
+        }
+        else
+            result = 0;
+
         return result;
     }
     else

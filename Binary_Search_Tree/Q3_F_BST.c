@@ -91,7 +91,6 @@ int main()
 
 void preOrderIterative(BSTNode *root)
 {
-	// 트리 두개가 모두 NULL일 경우 예외처리
 	if (root == NULL)
 		printf("\n There is Nothing man\n");
 
