@@ -96,29 +96,62 @@ void inOrderTraversal(BSTNode *root)
 	Stack s;
 	s.top = NULL;
 	BSTNode *p = root;
-	push(&s, root);
 
-	while (s.top != NULL)
+	while (s.top != NULL || p != NULL)
 	{
-		if (p->left != NULL)
+		if (p != NULL)
 		{
-			push(&s, p->left);
+			push(&s, p);
 			p = p->left;
 		}
 		else
 		{
 			p = pop(&s);
 			printf("%d ", p->item);
-
-			if (p->right != NULL)
-			{
-				push(&s, p->right);
-				p = p->right;
-			}
+			p = p->right;
+			// if (p != NULL)
+			// {
+			// 	push(&s, p);
+			// }
 		}
 	}
 }
 
+// void inOrderTraversal(BSTNode *root)
+// {
+// 	if (root == NULL)
+// 		printf("\n There is Nothing man\n");
+
+// 	Stack s;
+// 	s.top = NULL;
+// 	BSTNode *temp;
+// 	BSTNode *prev = NULL;
+// 	push(&s, root);
+
+// 	while (s.top != NULL)
+// 	{
+// 		temp = pop(&s);
+// 		if ((temp->left == NULL && temp->right == NULL) || temp->right == prev)
+// 		{
+// 			printf("%d ", temp->item);
+// 			continue;
+// 		}
+
+// 		push(&s, temp->right);
+// 		push(&s, temp);
+// 		push(&s, temp->left);
+
+// 		if (temp->left == NULL && temp->right != NULL)
+// 		{
+// 			temp = temp->right;
+// 		}
+// 		else
+// 		{
+// 			temp = temp->left;
+// 		}
+// 		prev = temp;
+// 	}
+// }
 ///////////////////////////////////////////////////////////////////////////////
 
 void insertBSTNode(BSTNode **node, int value)
