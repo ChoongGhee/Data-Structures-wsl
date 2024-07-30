@@ -88,158 +88,140 @@ int main()
 }
 
 //////////////////////////////////////////////////////////////////////////////////
-
 void postOrderIterativeS1(BSTNode *root)
 {
-	if (root == NULL)
-		printf("\n There is Nothing man\n");
+}
 
+//@@@@@@@@@@@@@ while문으로 풀기
+void postOrderIterativeS1(BSTNode *root)
+{
 	Stack s;
 	s.top = NULL;
 	BSTNode *p = root;
-	push(&s, root);
+	BSTNode *prev = NULL;
 
-	while (s.top != NULL)
+	while (s.top != NULL || p != NULL)
 	{
-		if (p->right != NULL && p->left != NULL)
+		if (p != NULL)
 		{
-			push(&s, p->right);
-			push(&s, p->left);
-			p = p->left;
-		}
-		else if (p->right != NULL && p->left == NULL)
-		{
-			push(&s, p->right);
-			p = p->right;
-		}
-		else if (p->right == NULL && p->left != NULL)
-		{
-			push(&s, p->left);
+			push(&s, p);
 			p = p->left;
 		}
 		else
 		{
-			p = pop(&s);
-			printf("%d ", p->item);
-			if (p->left == NULL && p->right == NULL)
+			if (peek(&s)->right == NULL || prev == peek(&s)->right)
 			{
 				p = pop(&s);
 				printf("%d ", p->item);
-			}
-		}
-	}
-	// }
-	void postOrderIterativeS1(BSTNode * root)
-	{
-		Stack s;
-		s.top = NULL;
-		BSTNode *p = root;
-		BSTNode *prev;
-		push(&s, root);
-
-		while (s.top != NULL)
-		{
-		}
-	}
-	///////////////////////////////////////////////////////////////////////////////
-
-	void insertBSTNode(BSTNode * *node, int value)
-	{
-		if (*node == NULL)
-		{
-			*node = malloc(sizeof(BSTNode));
-
-			if (*node != NULL)
-			{
-				(*node)->item = value;
-				(*node)->left = NULL;
-				(*node)->right = NULL;
-			}
-		}
-		else
-		{
-			if (value < (*node)->item)
-			{
-				insertBSTNode(&((*node)->left), value);
-			}
-			else if (value > (*node)->item)
-			{
-				insertBSTNode(&((*node)->right), value);
+				prev = p;
+				p = NULL;
 			}
 			else
-				return;
+			{
+				p = peek(&s)->right;
+			}
 		}
 	}
+}
+///////////////////////////////////////////////////////////////////////////////
 
-	//////////////////////////////////////////////////////////////////////////////////
-
-	void push(Stack * stack, BSTNode * node)
+void insertBSTNode(BSTNode **node, int value)
+{
+	if (*node == NULL)
 	{
-		StackNode *temp;
+		*node = malloc(sizeof(BSTNode));
 
-		temp = malloc(sizeof(StackNode));
-
-		if (temp == NULL)
-			return;
-		temp->data = node;
-
-		if (stack->top == NULL)
-		{
-			stack->top = temp;
-			temp->next = NULL;
-		}
-		else
-		{
-			temp->next = stack->top;
-			stack->top = temp;
-		}
-	}
-
-	BSTNode *pop(Stack * s)
-	{
-		StackNode *temp, *t;
-		BSTNode *ptr;
-		ptr = NULL;
-
-		t = s->top;
-		if (t != NULL)
-		{
-			temp = t->next;
-			ptr = t->data;
-
-			s->top = temp;
-			free(t);
-			t = NULL;
-		}
-
-		return ptr;
-	}
-
-	BSTNode *peek(Stack * s)
-	{
-		StackNode *temp;
-		temp = s->top;
-		if (temp != NULL)
-			return temp->data;
-		else
-			return NULL;
-	}
-
-	int isEmpty(Stack * s)
-	{
-		if (s->top == NULL)
-			return 1;
-		else
-			return 0;
-	}
-
-	void removeAll(BSTNode * *node)
-	{
 		if (*node != NULL)
 		{
-			removeAll(&((*node)->left));
-			removeAll(&((*node)->right));
-			free(*node);
-			*node = NULL;
+			(*node)->item = value;
+			(*node)->left = NULL;
+			(*node)->right = NULL;
 		}
 	}
+	else
+	{
+		if (value < (*node)->item)
+		{
+			insertBSTNode(&((*node)->left), value);
+		}
+		else if (value > (*node)->item)
+		{
+			insertBSTNode(&((*node)->right), value);
+		}
+		else
+			return;
+	}
+}
+
+//////////////////////////////////////////////////////////////////////////////////
+
+void push(Stack *stack, BSTNode *node)
+{
+	StackNode *temp;
+
+	temp = malloc(sizeof(StackNode));
+
+	if (temp == NULL)
+		return;
+	temp->data = node;
+
+	if (stack->top == NULL)
+	{
+		stack->top = temp;
+		temp->next = NULL;
+	}
+	else
+	{
+		temp->next = stack->top;
+		stack->top = temp;
+	}
+}
+
+BSTNode *pop(Stack *s)
+{
+	StackNode *temp, *t;
+	BSTNode *ptr;
+	ptr = NULL;
+
+	t = s->top;
+	if (t != NULL)
+	{
+		temp = t->next;
+		ptr = t->data;
+
+		s->top = temp;
+		free(t);
+		t = NULL;
+	}
+
+	return ptr;
+}
+
+BSTNode *peek(Stack *s)
+{
+	StackNode *temp;
+	temp = s->top;
+	if (temp != NULL)
+		return temp->data;
+	else
+		return NULL;
+}
+
+int isEmpty(Stack *s)
+{
+	if (s->top == NULL)
+		return 1;
+	else
+		return 0;
+}
+
+void removeAll(BSTNode **node)
+{
+	if (*node != NULL)
+	{
+		removeAll(&((*node)->left));
+		removeAll(&((*node)->right));
+		free(*node);
+		*node = NULL;
+	}
+}
