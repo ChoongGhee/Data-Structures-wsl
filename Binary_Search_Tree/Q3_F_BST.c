@@ -102,7 +102,6 @@ void preOrderIterative(BSTNode *root)
 
 	while (s.top != NULL)
 	{
-		// 트리 두개가 1개 이상 있는 경우
 		temp = pop(&s);
 
 		if (temp == NULL)
